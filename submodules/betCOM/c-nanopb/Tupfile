@@ -1,0 +1,13 @@
+include_rules
+
+ifeq (@(TUP_PLATFORM),linux)
+
+: foreach ../*.proto |  ../*.options proto/*_pb2.py proto/*.pyc |> protoc --plugin=protoc-gen-nanopb=protoc-gen-nanopb -I.. --nanopb_out=-f../%B.options:. %f |> %B.pb.c %B.pb.h
+
+else
+
+: foreach ../*.proto |  ../*.options proto/*_pb2.py proto/*.pyc |> protoc --plugin=protoc-gen-nanopb=protoc-gen-nanopb.bat -I.. --nanopb_out=-f../%B.options:. %f |> %B.pb.c %B.pb.h
+
+endif
+
+.gitignore

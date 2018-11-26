@@ -1,0 +1,19 @@
+var searchData=
+[
+  ['r',['R',['../structtags___n_c_p5623___d_a_t_a__t.html#ad6dca68b61d96e60ca0062e00390ba9f',1,'tags_NCP5623_DATA_t']]],
+  ['read_5fctx1',['read_ctx1',['../ads1115_8c.html#af038556f52e2e6775072fe60b7b1aea7',1,'ads1115.c']]],
+  ['read_5fctx2',['read_ctx2',['../ads1115_8c.html#ae0fcbcffcf17085a5f4922b48a0f4c1c',1,'ads1115.c']]],
+  ['read_5fctx3',['read_ctx3',['../ads1115_8c.html#af64a4e30530aa94008c91dae812adc0c',1,'ads1115.c']]],
+  ['read_5fdata',['read_data',['../structs__i2c__bus__mgr__read__t.html#afcbd04d3e58dd44dcc132fe59320f424',1,'s_i2c_bus_mgr_read_t']]],
+  ['read_5flength',['read_length',['../structs__i2c__bus__mgr__read__t.html#aa827974e99a6fffb34927b7448c4e851',1,'s_i2c_bus_mgr_read_t']]],
+  ['read_5fqueued',['read_queued',['../structs__i2c__bus__mgr__read__t.html#a95e76f1b834f67a24ffa7daf7c162e19',1,'s_i2c_bus_mgr_read_t']]],
+  ['read_5fsize',['READ_SIZE',['../imu__xsens_8c.html#a86e1969b50e55e5d506233078ca0fa4c',1,'imu_xsens.c']]],
+  ['readme_2emd',['README.md',['../_r_e_a_d_m_e_8md.html',1,'']]],
+  ['reflect_5fdata',['REFLECT_DATA',['../crc16_8c.html#af0f500ef8417d1fd61105249c647d3a2',1,'crc16.c']]],
+  ['reflect_5fremainder',['REFLECT_REMAINDER',['../crc16_8c.html#a2354513de80cf643198f44d7030b74d7',1,'crc16.c']]],
+  ['reg_5facc_5fdata_5fx_5flsb',['REG_ACC_DATA_X_LSB',['../bno055_8c.html#adec74e4a9db44b538c7e5fcc80d63d23',1,'bno055.c']]],
+  ['reg_5fopr_5fmode',['REG_OPR_MODE',['../bno055_8c.html#a675b6fd9451b7380930a5fd0079bc5fd',1,'bno055.c']]],
+  ['reg_5fqua_5fdata_5fw_5flsb',['REG_QUA_DATA_W_LSB',['../bno055_8c.html#ac89c68aaa0729b113cffa750fad89cf5',1,'bno055.c']]],
+  ['reset_5fgpio',['RESET_GPIO',['../imu__xsens_8c.html#a00617512e211e0e2d42ca73d9dfc5f62',1,'imu_xsens.c']]],
+  ['rotation_5fspi_5fctx',['rotation_spi_ctx',['../tube-angle-sensor_8c.html#a7d99b68ef91a09e89ef6e852b5cff063',1,'tube-angle-sensor.c']]]
+];

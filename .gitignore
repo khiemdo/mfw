@@ -1,0 +1,9 @@
+/doc/output
+/doc/doxy-workspace
+/doc/doxygen.log
+
+\.metadata/
+
+\.jxbrowser-data/
+
+RemoteSystemsTempFiles/

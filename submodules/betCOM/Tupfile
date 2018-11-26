@@ -1,0 +1,3 @@
+.gitignore
+
+: | BetCOM_VERSION |> python find_versions.py > %o |> Versions.txt

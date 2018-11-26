@@ -1,0 +1,101 @@
+enum Component_ID
+{
+    BETCOM_HANDLER = 1;
+    ETHERNET_COM = 2;
+    UART_COM = 3;
+    I2CHANDLER_0 = 4;
+    I2CHANDLER_1 = 5;
+    I2CHANDLER_2 = 6;
+    I2CHANDLER_3 = 7;
+    I2CHANDLER_4 = 8;
+    I2CHANDLER_5 = 9;
+    PB_FORWARDER_0 = 10;
+    PB_FORWARDER_1 = 11;
+    PB_FORWARDER_2 = 12;
+    PB_FORWARDER_3 = 13;
+    PB_FORWARDER_4 = 14;
+    PB_FORWARDER_5 = 15;
+    PB_FORWARDER_6 = 16;
+    PB_FORWARDER_7 = 17;
+
+    // TODO: Rename ServoDudes to something more meaningful
+    SERVODUDE_1 = 18;
+    SERVODUDE_2 = 19;
+    SERVODUDE_3 = 20;
+    SERVODUDE_4 = 21;
+    SERVODUDE_5 = 22;
+    SERVODUDE_6 = 23;
+    NCP5623 = 24;
+
+    BNO055 = 25;
+    MPU9250 = 26;
+    MPL3111A2 = 27;
+    SHT25 = 28;
+
+    COMP_COUNT = 29;
+}
+
+enum Board_ID
+{
+    BROADCAST = 0;
+    NUCLEUS = 1;
+    // TODO: Rename Vetibulus to something more meaningful
+    VESTIBULUS_1 = 2;
+    VESTIBULUS_2 = 3;
+    VESTIBULUS_3 = 4;
+    // TODO: Rename Axon to something more meaningful
+    AXON_1 = 5;
+    AXON_2 = 6;
+    AXON_3 = 7;
+    AXON_4 = 8;
+    PHARYNX_1 = 9;
+    PHARYNX_2 = 10;
+    ARTICULUS = 11;
+    CORDIS = 12;
+    RESPIRATOR = 13;
+    // TODO: Rename Lypocyte to something more meaningful
+    LIPOCYTE_1 = 14;
+    LIPOCYTE_2 = 15;
+    CAESIUM = 16;
+}
+
+enum Label {
+    ACCELERATION = 0;
+    MAGNET = 1;
+    GYRO = 2;
+    QUATERNION = 3;
+    LINEAR_ACCELERATION = 4;
+    GRAVITY = 5;
+    PRESSURE = 6;
+    TEMPERATURE = 7;
+    HUMIDITY = 8;
+    ANGLE = 9;
+    MAIN_LOOPS = 10;
+    CRC_ERRORS = 11;
+}
+
+message Address
+{
+    required Board_ID board_id = 1;
+    required Component_ID component_id = 2;
+    required Label label = 3;
+}
+
+message Timestamp{
+  required uint32 sec = 1;
+  required uint32 nsec = 2;
+}
+
+message StateValue
+{
+    required Address address = 1;
+    required Timestamp ts = 2;
+    repeated float values = 3;
+}
+
+message BetCOM
+{
+    required uint32 package_counter = 1;
+    repeated StateValue state_value = 2;
+    repeated string log_report = 3;
+}

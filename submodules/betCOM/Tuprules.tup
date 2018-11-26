@@ -1,0 +1,10 @@
+ifeq (@(TUP_PLATFORM),linux)
+
+CXX = clang++
+
+else
+
+CXX = clang++
+
+endif
+

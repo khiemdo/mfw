@@ -1,0 +1,3 @@
+: foreach ../*.proto | ../*.options |> protoc -I.. --python_out=. %f |> %B_pb2.py
+
+.gitignore

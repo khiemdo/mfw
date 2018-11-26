@@ -1,0 +1,9 @@
+pages:
+  stage: deploy
+  script:
+  - echo 'Nothing to do as doxygen output is committed to public folder ...'
+  artifacts:
+    paths:
+    - public
+  only:
+  - develop # used for testing to not mess our master branch

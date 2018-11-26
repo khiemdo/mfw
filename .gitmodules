@@ -1,0 +1,12 @@
+[submodule "submodules/betCOM"]
+	path = submodules/betCOM
+	url = git@gitlab.syscop.de:highwind/betCOM.git
+[submodule "submodules/nanopb"]
+	path = submodules/nanopb
+	url = git@gitlab.syscop.de:highwind/nanopb.git
+[submodule "submodules/sproto"]
+	path = submodules/sproto
+	url = git@gitlab.syscop.de:highwind/sproto.git
+[submodule "doc/doc-tools"]
+	path = doc/doc-tools
+	url = git@gitlab.syscop.de:TOPCORE/doc-tools.git

@@ -1,0 +1,17 @@
+include_rules
+
+ifeq (@(TUP_PLATFORM),linux)
+
+: foreach ../*.proto | ../*.options |> protoc -I.. --cpp_out=. %f |> %B.pb.cc %B.pb.h
+
+: foreach *.cc | *.h |> $(CXX) -c %f -o %o -fPIC |> %B.o
+
+: *.o |> $(CXX) %f -o %o -fPIC -lprotobuf -shared -Wl,--no-undefined |> libbetcom.so
+
+else
+
+: |> echo "C++ build is unnecessary in Windows and therefore omitted" |>
+
+endif
+
+.gitignore

@@ -1,0 +1,9 @@
+include_rules
+
+# Build orocos component
+: foreach *.c | *.h |> $(CXX) $(CXXFLAGS) -fPIC -c %f -o %o |> %B.o
+
+# Link orocos component
+: *.o |> $(CXX) -shared -o %o %f |> %d.so
+
+.gitignore

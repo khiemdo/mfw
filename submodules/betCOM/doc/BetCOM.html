@@ -1,0 +1,2810 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Protocol Documentation</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:400,700,400italic"/>
+    <style>
+      body {
+        width: 60em;
+        margin: 1em auto;
+        color: #222;
+        font-family: "Ubuntu", sans-serif;
+        padding-bottom: 4em;
+      }
+
+      h1 {
+        font-weight: normal;
+        border-bottom: 1px solid #aaa;
+        padding-bottom: 0.5ex;
+      }
+
+      h2 {
+        border-bottom: 1px solid #aaa;
+        padding-bottom: 0.5ex;
+        margin: 1.5em 0;
+      }
+
+      h3 {
+        font-weight: normal;
+        border-bottom: 1px solid #aaa;
+        padding-bottom: 0.5ex;
+      }
+
+      a {
+        text-decoration: none;
+        color: #567e25;
+      }
+
+      table {
+        width: 100%;
+        font-size: 80%;
+        border-collapse: collapse;
+      }
+
+      thead {
+        font-weight: 700;
+        background-color: #dcdcdc;
+      }
+
+      tbody tr:nth-child(even) {
+        background-color: #fbfbfb;
+      }
+
+      td {
+        border: 1px solid #ccc;
+        padding: 0.5ex 2ex;
+      }
+
+      td p {
+        text-indent: 1em;
+        margin: 0;
+      }
+
+      td p:nth-child(1) {
+        text-indent: 0; /* No indent on first p in td */
+      }
+
+      /* Table of fields */
+      .field-table td:nth-child(1) { /* Field */
+        width: 10em;
+      }
+      .field-table td:nth-child(2) { /* Type */
+        width: 10em;
+      }
+      .field-table td:nth-child(3) { /* Label */
+        width: 6em;
+      }
+      .field-table td:nth-child(4) { /* Description */
+        width: auto;
+      }
+
+      /* Table of enum values. */
+      .enum-table td:nth-child(1) { /* Name */
+        width: 10em;
+      }
+      .enum-table td:nth-child(2) { /* Number */
+        width: 10em;
+      }
+      .enum-table td:nth-child(3) { /* Description */
+        width: auto;
+      }
+
+      /* Table of scalar value types. */
+      .scalar-value-types-table tr {
+        height: 3em;
+      }
+
+      /* Table of contents. */
+      #toc-container ul {
+        list-style-type: none;
+        padding-left: 1em;
+        line-height: 180%;
+        margin: 0;
+      }
+      #toc > li > a {
+        font-weight: bold;
+      }
+
+      /* File heading div */
+      .file-heading {
+        width: 100%;
+        display: table;
+        border-bottom: 1px solid #aaa;
+        margin: 4em 0 1.5em 0;
+      }
+      .file-heading h2 {
+        border: none;
+        display: table-cell;
+      }
+      .file-heading a {
+        text-align: right;
+        display: table-cell;
+      }
+
+      /* The 'M' and 'E' badges in the ToC */
+      .badge {
+        width: 1.6em;
+        height: 1.6em;
+        display: inline-block;
+
+        line-height: 1.6em;
+        text-align: center;
+        font-weight: bold;
+        font-size: 60%;
+
+        color: #89ba48;
+        background-color: #dff0c8;
+
+        margin: 0.5ex 1em 0.5ex -1em;
+        border: 1px solid #fbfbfb;
+        border-radius: 1ex;
+      }
+    </style>
+
+    <!-- User custom CSS -->
+    <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+  </head>
+
+  <body>
+
+    <h1 id="title">Protocol Documentation</h1>
+
+    <h2>Table of Contents</h2>
+
+    <div id="toc-container">
+      <ul id="toc">
+        <li>
+          <a href="#adc.proto">adc.proto</a>
+          <ul>
+            <li>
+              <a href="#BetCOM.Adc">
+                <span class="badge">M</span>
+                Adc
+              </a>
+            </li>
+            <li>
+              <a href="#BetCOM.AdcConf">
+                <span class="badge">M</span>
+                AdcConf
+              </a>
+            </li>
+            <li>
+              <a href="#BetCOM.Current">
+                <span class="badge">M</span>
+                Current
+              </a>
+            </li>
+            <li>
+              <a href="#BetCOM.Voltage">
+                <span class="badge">M</span>
+                Voltage
+              </a>
+            </li>
+            <li>
+              <a href="#BetCOM.Current.Channel">
+                <span class="badge">E</span>
+                Current.Channel
+              </a>
+            </li>
+            <li>
+              <a href="#BetCOM.Voltage.Channel">
+                <span class="badge">E</span>
+                Voltage.Channel
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#airspeed.proto">airspeed.proto</a>
+          <ul>
+            <li>
+              <a href="#BetCOM.Airspeed">
+                <span class="badge">M</span>
+                Airspeed
+              </a>
+            </li>
+            <li>
+              <a href="#BetCOM.AirspeedConf">
+                <span class="badge">M</span>
+                AirspeedConf
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#angle_of_attack.proto">angle_of_attack.proto</a>
+          <ul>
+            <li>
+              <a href="#BetCOM.AngleOfAttack">
+                <span class="badge">M</span>
+                AngleOfAttack
+              </a>
+            </li>
+            <li>
+              <a href="#BetCOM.AngleOfAttackConf">
+                <span class="badge">M</span>
+                AngleOfAttackConf
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#baro.proto">baro.proto</a>
+          <ul>
+            <li>
+              <a href="#BetCOM.Barometer">
+                <span class="badge">M</span>
+                Barometer
+              </a>
+            </li>
+            <li>
+              <a href="#BetCOM.BarometerConf">
+                <span class="badge">M</span>
+                BarometerConf
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#betcall.proto">betcall.proto</a>
+          <ul>
+            <li>
+              <a href="#BetCALL.Sensors">
+                <span class="badge">M</span>
+                Sensors
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#betconf.proto">betconf.proto</a>
+          <ul>
+            <li>
+              <a href="#BetCONF.Configuration">
+                <span class="badge">M</span>
+                Configuration
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#betpush.proto">betpush.proto</a>
+          <ul>
+            <li>
+              <a href="#BetPUSH.Actuators">
+                <span class="badge">M</span>
+                Actuators
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#gps_piksi.proto">gps_piksi.proto</a>
+          <ul>
+            <li>
+              <a href="#BetCOM.Gps">
+                <span class="badge">M</span>
+                Gps
+              </a>
+            </li>
+            <li>
+              <a href="#BetCOM.GpsBaseline">
+                <span class="badge">M</span>
+                GpsBaseline
+              </a>
+            </li>
+            <li>
+              <a href="#BetCOM.GpsConf">
+                <span class="badge">M</span>
+                GpsConf
+              </a>
+            </li>
+            <li>
+              <a href="#BetCOM.GpsDilutionOfPrecision">
+                <span class="badge">M</span>
+                GpsDilutionOfPrecision
+              </a>
+            </li>
+            <li>
+              <a href="#BetCOM.GpsPosition">
+                <span class="badge">M</span>
+                GpsPosition
+              </a>
+            </li>
+            <li>
+              <a href="#BetCOM.GpsTime">
+                <span class="badge">M</span>
+                GpsTime
+              </a>
+            </li>
+            <li>
+              <a href="#BetCOM.GpsVelocity">
+                <span class="badge">M</span>
+                GpsVelocity
+              </a>
+            </li>
+            <li>
+              <a href="#BetCOM.GpsAxialSystem">
+                <span class="badge">E</span>
+                GpsAxialSystem
+              </a>
+            </li>
+            <li>
+              <a href="#BetCOM.GpsStatus">
+                <span class="badge">E</span>
+                GpsStatus
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#gps.proto">gps.proto</a>
+          <ul>
+          </ul>
+        </li>
+        <li>
+          <a href="#humidity.proto">humidity.proto</a>
+          <ul>
+            <li>
+              <a href="#BetCOM.Humidity">
+                <span class="badge">M</span>
+                Humidity
+              </a>
+            </li>
+            <li>
+              <a href="#BetCOM.HumidityConf">
+                <span class="badge">M</span>
+                HumidityConf
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#imu.proto">imu.proto</a>
+          <ul>
+            <li>
+              <a href="#BetCOM.Imu">
+                <span class="badge">M</span>
+                Imu
+              </a>
+            </li>
+            <li>
+              <a href="#BetCOM.ImuConf">
+                <span class="badge">M</span>
+                ImuConf
+              </a>
+            </li>
+            <li>
+              <a href="#BetCOM.ImuMeasurement">
+                <span class="badge">M</span>
+                ImuMeasurement
+              </a>
+            </li>
+            <li>
+              <a href="#BetCOM.ImuConf.AccelRange">
+                <span class="badge">E</span>
+                ImuConf.AccelRange
+              </a>
+            </li>
+            <li>
+              <a href="#BetCOM.ImuConf.GyroRange">
+                <span class="badge">E</span>
+                ImuConf.GyroRange
+              </a>
+            </li>
+            <li>
+              <a href="#BetCOM.ImuType">
+                <span class="badge">E</span>
+                ImuType
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#led.proto">led.proto</a>
+          <ul>
+            <li>
+              <a href="#BetCOM.Led">
+                <span class="badge">M</span>
+                Led
+              </a>
+            </li>
+            <li>
+              <a href="#BetCOM.LedBrightness">
+                <span class="badge">M</span>
+                LedBrightness
+              </a>
+            </li>
+            <li>
+              <a href="#BetCOM.LedMode">
+                <span class="badge">M</span>
+                LedMode
+              </a>
+            </li>
+            <li>
+              <a href="#BetCOM.LedRGB">
+                <span class="badge">M</span>
+                LedRGB
+              </a>
+            </li>
+            <li>
+              <a href="#BetCOM.Leds">
+                <span class="badge">M</span>
+                Leds
+              </a>
+            </li>
+            <li>
+              <a href="#BetCOM.Led.Location">
+                <span class="badge">E</span>
+                Led.Location
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#line_angle.proto">line_angle.proto</a>
+          <ul>
+            <li>
+              <a href="#BetCOM.LineAngle">
+                <span class="badge">M</span>
+                LineAngle
+              </a>
+            </li>
+            <li>
+              <a href="#BetCOM.LineAngleConf">
+                <span class="badge">M</span>
+                LineAngleConf
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#strain.proto">strain.proto</a>
+          <ul>
+            <li>
+              <a href="#BetCOM.Dms">
+                <span class="badge">M</span>
+                Dms
+              </a>
+            </li>
+            <li>
+              <a href="#BetCOM.DmsConf">
+                <span class="badge">M</span>
+                DmsConf
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#temperature.proto">temperature.proto</a>
+          <ul>
+            <li>
+              <a href="#BetCOM.Temperature">
+                <span class="badge">M</span>
+                Temperature
+              </a>
+            </li>
+            <li>
+              <a href="#BetCOM.TemperatureConf">
+                <span class="badge">M</span>
+                TemperatureConf
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#tube_angle.proto">tube_angle.proto</a>
+          <ul>
+            <li>
+              <a href="#BetCOM.TubeAngle">
+                <span class="badge">M</span>
+                TubeAngle
+              </a>
+            </li>
+            <li>
+              <a href="#BetCOM.TubeAngleConf">
+                <span class="badge">M</span>
+                TubeAngleConf
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#types.proto">types.proto</a>
+          <ul>
+            <li>
+              <a href="#BetCOM.BasicConf">
+                <span class="badge">M</span>
+                BasicConf
+              </a>
+            </li>
+            <li>
+              <a href="#BetCOM.Ticks">
+                <span class="badge">M</span>
+                Ticks
+              </a>
+            </li>
+            <li>
+              <a href="#BetCOM.Time">
+                <span class="badge">M</span>
+                Time
+              </a>
+            </li>
+            <li>
+              <a href="#BetCOM.Timestamp">
+                <span class="badge">M</span>
+                Timestamp
+              </a>
+            </li>
+            <li>
+              <a href="#BetCOM.XYZW_f">
+                <span class="badge">M</span>
+                XYZW_f
+              </a>
+            </li>
+            <li>
+              <a href="#BetCOM.XYZW_i">
+                <span class="badge">M</span>
+                XYZW_i
+              </a>
+            </li>
+            <li>
+              <a href="#BetCOM.XYZ_f">
+                <span class="badge">M</span>
+                XYZ_f
+              </a>
+            </li>
+            <li>
+              <a href="#BetCOM.XYZ_i">
+                <span class="badge">M</span>
+                XYZ_i
+              </a>
+            </li>
+            <li>
+              <a href="#BetCOM.Globals">
+                <span class="badge">E</span>
+                Globals
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#scalar-value-types">Scalar Value Types</a></li>
+      </ul>
+    </div>
+
+    <div class="file-heading">
+      <h2 id="adc.proto">adc.proto</h2><a href="#title">Top</a>
+    </div>
+    <h3 id="BetCOM.Adc">Adc</h3>
+    <p>Message container for ADC message</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>time</td>
+          <td><a href="#BetCOM.Time">Time</a></td>
+          <td>required</td>
+          <td><p>timestamp of message</p></td>
+        </tr>
+        <tr>
+          <td>current</td>
+          <td><a href="#BetCOM.Current">Current</a></td>
+          <td>repeated</td>
+          <td><p>current measurements for one or more channels</p></td>
+        </tr>
+        <tr>
+          <td>voltage</td>
+          <td><a href="#BetCOM.Voltage">Voltage</a></td>
+          <td>repeated</td>
+          <td><p>voltage measurements for one ore more channels</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="BetCOM.AdcConf">AdcConf</h3>
+    <p>ADC configurattion message</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>basic_conf</td>
+          <td><a href="#BetCOM.BasicConf">BasicConf</a></td>
+          <td>required</td>
+          <td><p>basic configuration of adc</p></td>
+        </tr>
+        <tr>
+          <td>fullscale_voltage_12V</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p>basic configuration of adc</p></td>
+        </tr>
+        <tr>
+          <td>fullscale_voltage_7V</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>fullscale_voltage_5V</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>fullscale_voltage_3_3V</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>fullscale_voltage_ref_1V</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>fullscale_voltage_ref_2V</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>fullscale_voltage_ref_3V</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>fullscale_current_12V</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>fullscale_current_7V</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>fullscale_current_5V</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>fullscale_current_3_3V</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>fullscale_current_3_3V_uC</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>amplification_voltage_12V</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>amplification_voltage_7V</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>amplification_voltage_5V</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>amplification_voltage_3_3V</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>amplification_voltage_ref_1V</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>amplification_voltage_ref_2V</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>amplification_voltage_ref_3V</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>amplification_current_12V</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>amplification_current_7V</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>amplification_current_5V</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>amplification_current_3_3V</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>amplification_current_3_3V_uC</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p></p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="BetCOM.Current">Current</h3>
+    <p>Submessage for current measurements</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>time</td>
+          <td><a href="#BetCOM.Time">Time</a></td>
+          <td>required</td>
+          <td><p>timestamp of measurement</p></td>
+        </tr>
+        <tr>
+          <td>channel</td>
+          <td><a href="#BetCOM.Current.Channel">Current.Channel</a></td>
+          <td>required</td>
+          <td><p>Current channel which is measured</p></td>
+        </tr>
+        <tr>
+          <td>current_raw</td>
+          <td><a href="#sint32">sint32</a></td>
+          <td>optional</td>
+          <td><p>measured raw value</p></td>
+        </tr>
+        <tr>
+          <td>current</td>
+          <td><a href="#float">float</a></td>
+          <td>optional</td>
+          <td><p>measrement in A</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="BetCOM.Voltage">Voltage</h3>
+    <p>Voltage sub-message</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>time</td>
+          <td><a href="#BetCOM.Time">Time</a></td>
+          <td>required</td>
+          <td><p>timestamp of measurement</p></td>
+        </tr>
+        <tr>
+          <td>channel</td>
+          <td><a href="#BetCOM.Voltage.Channel">Voltage.Channel</a></td>
+          <td>required</td>
+          <td><p>Current channel which is measured</p></td>
+        </tr>
+        <tr>
+          <td>voltage_raw</td>
+          <td><a href="#sint32">sint32</a></td>
+          <td>optional</td>
+          <td><p>measured raw value</p></td>
+        </tr>
+        <tr>
+          <td>voltage</td>
+          <td><a href="#float">float</a></td>
+          <td>optional</td>
+          <td><p>measurement in V</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="BetCOM.Current.Channel">Current.Channel</h3>
+    <p>Current channel declarations depending on voltage</p>
+    <table class="enum-table">
+      <thead>
+        <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>CURRENT_12V</td>
+          <td>0</td>
+          <td><p>12V circuit</p></td>
+        </tr>
+        <tr>
+          <td>CURRENT_7V</td>
+          <td>1</td>
+          <td><p>7V circuit</p></td>
+        </tr>
+        <tr>
+          <td>CURRENT_5V</td>
+          <td>2</td>
+          <td><p>5V circuit</p></td>
+        </tr>
+        <tr>
+          <td>CURRENT_3_3V</td>
+          <td>3</td>
+          <td><p>3.3V circuit</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="BetCOM.Voltage.Channel">Voltage.Channel</h3>
+    <p>Voltage channel declarations</p>
+    <table class="enum-table">
+      <thead>
+        <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>VOLTAGE_12V</td>
+          <td>0</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>VOLTAGE_7V</td>
+          <td>1</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>VOLTAGE_5V</td>
+          <td>2</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>VOLTAGE_3_3V</td>
+          <td>3</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>VOLTAGE_3_3V_uC</td>
+          <td>4</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>VOLTAGE_REF_1V</td>
+          <td>5</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>VOLTAGE_REF_2V</td>
+          <td>6</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>VOLTAGE_REF_3V</td>
+          <td>7</td>
+          <td><p></p></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="file-heading">
+      <h2 id="airspeed.proto">airspeed.proto</h2><a href="#title">Top</a>
+    </div>
+    <h3 id="BetCOM.Airspeed">Airspeed</h3>
+    <p>Airspeed data struct measured with Pitot tube sensor from Eagletree</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>time</td>
+          <td><a href="#BetCOM.Time">Time</a></td>
+          <td>required</td>
+          <td><p>timestamp information</p></td>
+        </tr>
+        <tr>
+          <td>speed</td>
+          <td><a href="#float">float</a></td>
+          <td>optional</td>
+          <td><p>airspeed in m/s</p></td>
+        </tr>
+        <tr>
+          <td>speed_raw</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p>airspeed as raw value</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="BetCOM.AirspeedConf">AirspeedConf</h3>
+    <p></p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>basic_conf</td>
+          <td><a href="#BetCOM.BasicConf">BasicConf</a></td>
+          <td>required</td>
+          <td><p>basic configuration of airspeed sensor</p></td>
+        </tr>
+        <tr>
+          <td>speed_offset</td>
+          <td><a href="#float">float</a></td>
+          <td>optional</td>
+          <td><p>offset of airspeed measurements</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="file-heading">
+      <h2 id="angle_of_attack.proto">angle_of_attack.proto</h2><a href="#title">Top</a>
+    </div>
+    <h3 id="BetCOM.AngleOfAttack">AngleOfAttack</h3>
+    <p>Angle of Attack struct measured via rotational encoders</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>time</td>
+          <td><a href="#BetCOM.Time">Time</a></td>
+          <td>required</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>vertical</td>
+          <td><a href="#float">float</a></td>
+          <td>optional</td>
+          <td><p>measured vertical angle in rad</p></td>
+        </tr>
+        <tr>
+          <td>horizontal</td>
+          <td><a href="#float">float</a></td>
+          <td>optional</td>
+          <td><p>measured horizontal angle in rad</p></td>
+        </tr>
+        <tr>
+          <td>angle_of_attack</td>
+          <td><a href="#float">float</a></td>
+          <td>optional</td>
+          <td><p>calculated angle of attack</p></td>
+        </tr>
+        <tr>
+          <td>vertical_raw</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p>measured vertical angle raw value</p></td>
+        </tr>
+        <tr>
+          <td>horizontal_raw</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p>measured horizontal angle raw value</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="BetCOM.AngleOfAttackConf">AngleOfAttackConf</h3>
+    <p>Angel of Attack configuration message</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>basic_conf</td>
+          <td><a href="#BetCOM.BasicConf">BasicConf</a></td>
+          <td>required</td>
+          <td><p>basic configuration of angle of attack</p></td>
+        </tr>
+        <tr>
+          <td>vertical_offset</td>
+          <td><a href="#float">float</a></td>
+          <td>optional</td>
+          <td><p>offset of vertical angle measurements</p></td>
+        </tr>
+        <tr>
+          <td>horizontal_offset</td>
+          <td><a href="#float">float</a></td>
+          <td>optional</td>
+          <td><p>offset of horizontal angle measurements</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="file-heading">
+      <h2 id="baro.proto">baro.proto</h2><a href="#title">Top</a>
+    </div>
+    <h3 id="BetCOM.Barometer">Barometer</h3>
+    <p>Barometer data message</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>time</td>
+          <td><a href="#BetCOM.Time">Time</a></td>
+          <td>required</td>
+          <td><p>timestamp information of message</p></td>
+        </tr>
+        <tr>
+          <td>pressure</td>
+          <td><a href="#float">float</a></td>
+          <td>optional</td>
+          <td><p>atmospheric pressure in Pascal</p></td>
+        </tr>
+        <tr>
+          <td>altitude</td>
+          <td><a href="#float">float</a></td>
+          <td>optional</td>
+          <td><p>altitude in meter</p></td>
+        </tr>
+        <tr>
+          <td>temperature</td>
+          <td><a href="#float">float</a></td>
+          <td>optional</td>
+          <td><p>temperature in degree Celsius</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="BetCOM.BarometerConf">BarometerConf</h3>
+    <p>barometer configuration message</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>basic_conf</td>
+          <td><a href="#BetCOM.BasicConf">BasicConf</a></td>
+          <td>required</td>
+          <td><p>basic configuration of barometer</p></td>
+        </tr>
+        <tr>
+          <td>pressure_offset</td>
+          <td><a href="#float">float</a></td>
+          <td>optional</td>
+          <td><p>offset of atmospheric pressure in Pascal</p></td>
+        </tr>
+        <tr>
+          <td>altitude_offset</td>
+          <td><a href="#float">float</a></td>
+          <td>optional</td>
+          <td><p>offset of altitude in meter</p></td>
+        </tr>
+        <tr>
+          <td>temperature_offset</td>
+          <td><a href="#float">float</a></td>
+          <td>optional</td>
+          <td><p>offset of temperature in degree Celsius</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="file-heading">
+      <h2 id="betcall.proto">betcall.proto</h2><a href="#title">Top</a>
+    </div>
+    <h3 id="BetCALL.Sensors">Sensors</h3>
+    <p>Wrapper message for sensor communication between Flicght Controller (FC)
+and Groundstation (GS). Each sensor is defined in a sperate SENSORNAME.proto file
+which is then included for this wrapper message.</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>time</td>
+          <td><a href="#BetCOM.Time">Time</a></td>
+          <td>required</td>
+          <td><p>Timestamp information</p></td>
+        </tr>
+        <tr>
+          <td>imu</td>
+          <td><a href="#BetCOM.Imu">Imu</a></td>
+          <td>repeated</td>
+          <td><p>list of received IMU messages</p></td>
+        </tr>
+        <tr>
+          <td>airspeed</td>
+          <td><a href="#BetCOM.Airspeed">Airspeed</a></td>
+          <td>optional</td>
+          <td><p>received Airspeed message</p></td>
+        </tr>
+        <tr>
+          <td>gps</td>
+          <td><a href="#BetCOM.Gps">Gps</a></td>
+          <td>optional</td>
+          <td><p>received gps message</p></td>
+        </tr>
+        <tr>
+          <td>angle_of_attack</td>
+          <td><a href="#BetCOM.AngleOfAttack">AngleOfAttack</a></td>
+          <td>optional</td>
+          <td><p>received angle of attack message</p></td>
+        </tr>
+        <tr>
+          <td>tube_angle</td>
+          <td><a href="#BetCOM.TubeAngle">TubeAngle</a></td>
+          <td>optional</td>
+          <td><p>received tube angle sensor message</p></td>
+        </tr>
+        <tr>
+          <td>dms</td>
+          <td><a href="#BetCOM.Dms">Dms</a></td>
+          <td>optional</td>
+          <td><p>received strain gage message</p></td>
+        </tr>
+        <tr>
+          <td>adc</td>
+          <td><a href="#BetCOM.Adc">Adc</a></td>
+          <td>optional</td>
+          <td><p>received current and voltage measurements from ADC</p></td>
+        </tr>
+        <tr>
+          <td>barometer</td>
+          <td><a href="#BetCOM.Barometer">Barometer</a></td>
+          <td>optional</td>
+          <td><p>received barometer message</p></td>
+        </tr>
+        <tr>
+          <td>barometer_arm</td>
+          <td><a href="#BetCOM.Barometer">Barometer</a></td>
+          <td>optional</td>
+          <td><p>received barometer message</p></td>
+        </tr>
+        <tr>
+          <td>temperature</td>
+          <td><a href="#BetCOM.Temperature">Temperature</a></td>
+          <td>optional</td>
+          <td><p>received temperature message</p></td>
+        </tr>
+        <tr>
+          <td>temperature_arm</td>
+          <td><a href="#BetCOM.Temperature">Temperature</a></td>
+          <td>optional</td>
+          <td><p>received temperature message</p></td>
+        </tr>
+        <tr>
+          <td>humidity</td>
+          <td><a href="#BetCOM.Humidity">Humidity</a></td>
+          <td>optional</td>
+          <td><p>received humidity message</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="file-heading">
+      <h2 id="betconf.proto">betconf.proto</h2><a href="#title">Top</a>
+    </div>
+    <h3 id="BetCONF.Configuration">Configuration</h3>
+    <p>Wrapper message for sensor configuration for Flicght Controller (FC)
+from Groundstation (GS). Each configuration message is defined in a sperate SENSORNAME.proto file
+which is then included for this wrapper message.</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>gps</td>
+          <td><a href="#BetCOM.GpsConf">GpsConf</a></td>
+          <td>optional</td>
+          <td><p>gps configuration message</p></td>
+        </tr>
+        <tr>
+          <td>airspeed</td>
+          <td><a href="#BetCOM.AirspeedConf">AirspeedConf</a></td>
+          <td>optional</td>
+          <td><p>airspeed configuration message</p></td>
+        </tr>
+        <tr>
+          <td>angle_of_attack</td>
+          <td><a href="#BetCOM.AngleOfAttackConf">AngleOfAttackConf</a></td>
+          <td>optional</td>
+          <td><p>angle of attack configuration message</p></td>
+        </tr>
+        <tr>
+          <td>line_angle</td>
+          <td><a href="#BetCOM.LineAngleConf">LineAngleConf</a></td>
+          <td>optional</td>
+          <td><p>line angle sensor configuration message</p></td>
+        </tr>
+        <tr>
+          <td>tube_angle</td>
+          <td><a href="#BetCOM.TubeAngleConf">TubeAngleConf</a></td>
+          <td>optional</td>
+          <td><p>tube angle configuration message</p></td>
+        </tr>
+        <tr>
+          <td>dms</td>
+          <td><a href="#BetCOM.DmsConf">DmsConf</a></td>
+          <td>optional</td>
+          <td><p>dms configuration message</p></td>
+        </tr>
+        <tr>
+          <td>barometer</td>
+          <td><a href="#BetCOM.BarometerConf">BarometerConf</a></td>
+          <td>optional</td>
+          <td><p>barometer configuration message</p></td>
+        </tr>
+        <tr>
+          <td>imu</td>
+          <td><a href="#BetCOM.ImuConf">ImuConf</a></td>
+          <td>repeated</td>
+          <td><p>imu configuration messages</p></td>
+        </tr>
+        <tr>
+          <td>temperature</td>
+          <td><a href="#BetCOM.TemperatureConf">TemperatureConf</a></td>
+          <td>optional</td>
+          <td><p>temperature configuration messages</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="file-heading">
+      <h2 id="betpush.proto">betpush.proto</h2><a href="#title">Top</a>
+    </div>
+    <h3 id="BetPUSH.Actuators">Actuators</h3>
+    <p></p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>flaps_right</td>
+          <td><a href="#int32">int32</a></td>
+          <td>optional</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>flaps_left</td>
+          <td><a href="#int32">int32</a></td>
+          <td>optional</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>ailerons_right</td>
+          <td><a href="#int32">int32</a></td>
+          <td>optional</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>ailerons_left</td>
+          <td><a href="#int32">int32</a></td>
+          <td>optional</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>rudder</td>
+          <td><a href="#int32">int32</a></td>
+          <td>optional</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>elevator</td>
+          <td><a href="#int32">int32</a></td>
+          <td>optional</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>ticks</td>
+          <td><a href="#BetCOM.Ticks">Ticks</a></td>
+          <td>optional</td>
+          <td><p></p></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="file-heading">
+      <h2 id="gps_piksi.proto">gps_piksi.proto</h2><a href="#title">Top</a>
+    </div>
+    <h3 id="BetCOM.Gps">Gps</h3>
+    <p>GPS data struct for velocity or position measures from PIKSI
+Definition close to SBP Protocola defined here: https://github.com/swift-nav/libsbp/raw/master/docs/sbp.pdf</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>time</td>
+          <td><a href="#BetCOM.Time">Time</a></td>
+          <td>required</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>gps_time</td>
+          <td><a href="#BetCOM.GpsTime">GpsTime</a></td>
+          <td>optional</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>baseline</td>
+          <td><a href="#BetCOM.GpsBaseline">GpsBaseline</a></td>
+          <td>optional</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>position</td>
+          <td><a href="#BetCOM.GpsPosition">GpsPosition</a></td>
+          <td>optional</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>velocity</td>
+          <td><a href="#BetCOM.GpsVelocity">GpsVelocity</a></td>
+          <td>optional</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>dilution_of_precision</td>
+          <td><a href="#BetCOM.GpsDilutionOfPrecision">GpsDilutionOfPrecision</a></td>
+          <td>optional</td>
+          <td><p></p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="BetCOM.GpsBaseline">GpsBaseline</h3>
+    <p>GPS Baseline message for differntial GPS estimates</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>axial_system</td>
+          <td><a href="#BetCOM.GpsAxialSystem">GpsAxialSystem</a></td>
+          <td>optional</td>
+          <td><p>Baseline estimates are in NED or ECEF axial system</p></td>
+        </tr>
+        <tr>
+          <td>time_of_week_ms</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p>time of week in milliseconds</p></td>
+        </tr>
+        <tr>
+          <td>position</td>
+          <td><a href="#BetCOM.XYZ_f">XYZ_f</a></td>
+          <td>required</td>
+          <td><p>XYZ baseline position</p></td>
+        </tr>
+        <tr>
+          <td>n_satellites</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p>number of satellites</p></td>
+        </tr>
+        <tr>
+          <td>status</td>
+          <td><a href="#BetCOM.GpsStatus">GpsStatus</a></td>
+          <td>optional</td>
+          <td><p>gps status information</p></td>
+        </tr>
+        <tr>
+          <td>h_accuracy</td>
+          <td><a href="#float">float</a></td>
+          <td>optional</td>
+          <td><p>horizontal accuracy</p></td>
+        </tr>
+        <tr>
+          <td>v_accuracy</td>
+          <td><a href="#float">float</a></td>
+          <td>optional</td>
+          <td><p>vertical accuracy</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="BetCOM.GpsConf">GpsConf</h3>
+    <p>GPS configuration message</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>basic_conf</td>
+          <td><a href="#BetCOM.BasicConf">BasicConf</a></td>
+          <td>required</td>
+          <td><p>basic configuration of gps piksi sensor</p></td>
+        </tr>
+        <tr>
+          <td>velocity_axial_system</td>
+          <td><a href="#BetCOM.GpsAxialSystem">GpsAxialSystem</a></td>
+          <td>optional</td>
+          <td><p>axial system for velocity measurements</p></td>
+        </tr>
+        <tr>
+          <td>position_axial_system</td>
+          <td><a href="#BetCOM.GpsAxialSystem">GpsAxialSystem</a></td>
+          <td>optional</td>
+          <td><p>axial system for position measurements</p></td>
+        </tr>
+        <tr>
+          <td>baseline_axial_system</td>
+          <td><a href="#BetCOM.GpsAxialSystem">GpsAxialSystem</a></td>
+          <td>optional</td>
+          <td><p>axial system for baseline measurements</p></td>
+        </tr>
+        <tr>
+          <td>send_time</td>
+          <td><a href="#bool">bool</a></td>
+          <td>optional</td>
+          <td><p>flag for sending gps time message</p></td>
+        </tr>
+        <tr>
+          <td>send_accuracy</td>
+          <td><a href="#bool">bool</a></td>
+          <td>optional</td>
+          <td><p>flag for sending gps accuracy measurements</p></td>
+        </tr>
+        <tr>
+          <td>send_dilution_of_precision</td>
+          <td><a href="#bool">bool</a></td>
+          <td>optional</td>
+          <td><p>flag for sending gps dilution of precision message</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="BetCOM.GpsDilutionOfPrecision">GpsDilutionOfPrecision</h3>
+    <p>GPS dilution of precision message</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>time_of_week_ms</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>required</td>
+          <td><p>time of week in milliseconds</p></td>
+        </tr>
+        <tr>
+          <td>geometric_dilution</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>required</td>
+          <td><p>Geometric Dilution of Precision</p></td>
+        </tr>
+        <tr>
+          <td>position_dilution</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>required</td>
+          <td><p>Position Dilution of Precision</p></td>
+        </tr>
+        <tr>
+          <td>time_dilution</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>required</td>
+          <td><p>Time Dilution of Precision</p></td>
+        </tr>
+        <tr>
+          <td>horizontal_dilution</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>required</td>
+          <td><p>Horizontal Dilution of Precision</p></td>
+        </tr>
+        <tr>
+          <td>vertical_dilution</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>required</td>
+          <td><p>Vertical Dilution of Precision</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="BetCOM.GpsPosition">GpsPosition</h3>
+    <p>GPS position estimate</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>axial_system</td>
+          <td><a href="#BetCOM.GpsAxialSystem">GpsAxialSystem</a></td>
+          <td>required</td>
+          <td><p>Position can be in LLH or ECEF format</p></td>
+        </tr>
+        <tr>
+          <td>time_of_week_ms</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p>time of week in milliseconds</p></td>
+        </tr>
+        <tr>
+          <td>position</td>
+          <td><a href="#BetCOM.XYZ_f">XYZ_f</a></td>
+          <td>required</td>
+          <td><p>XYZ position in float</p></td>
+        </tr>
+        <tr>
+          <td>n_satellites</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p>number of satellites</p></td>
+        </tr>
+        <tr>
+          <td>status</td>
+          <td><a href="#BetCOM.GpsStatus">GpsStatus</a></td>
+          <td>optional</td>
+          <td><p>gps status information</p></td>
+        </tr>
+        <tr>
+          <td>h_accuracy</td>
+          <td><a href="#float">float</a></td>
+          <td>optional</td>
+          <td><p>horizontal accuracy</p></td>
+        </tr>
+        <tr>
+          <td>v_accuracy</td>
+          <td><a href="#float">float</a></td>
+          <td>optional</td>
+          <td><p>vertical accuracy</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="BetCOM.GpsTime">GpsTime</h3>
+    <p>High precision time message from GPS module</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>weeks</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>required</td>
+          <td><p>number of weeks</p></td>
+        </tr>
+        <tr>
+          <td>time_of_week</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>required</td>
+          <td><p>time of week in milliseconds</p></td>
+        </tr>
+        <tr>
+          <td>ns</td>
+          <td><a href="#sint32">sint32</a></td>
+          <td>required</td>
+          <td><p>Nanosecond residual of millisecond-rounded time_of_week (ranges from -500000 to 500000)</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="BetCOM.GpsVelocity">GpsVelocity</h3>
+    <p>GPS velocity message in corresponding axial system</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>axial_system</td>
+          <td><a href="#BetCOM.GpsAxialSystem">GpsAxialSystem</a></td>
+          <td>optional</td>
+          <td><p>velocity estimates are in NED or ECEF axial system</p></td>
+        </tr>
+        <tr>
+          <td>time_of_week</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p>time of week in milliseconds</p></td>
+        </tr>
+        <tr>
+          <td>velocity</td>
+          <td><a href="#BetCOM.XYZ_f">XYZ_f</a></td>
+          <td>required</td>
+          <td><p>XYZ velocities in m/s</p></td>
+        </tr>
+        <tr>
+          <td>n_satellites</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p>number of satellites</p></td>
+        </tr>
+        <tr>
+          <td>status</td>
+          <td><a href="#BetCOM.GpsStatus">GpsStatus</a></td>
+          <td>optional</td>
+          <td><p>gps status information</p></td>
+        </tr>
+        <tr>
+          <td>h_accuracy</td>
+          <td><a href="#float">float</a></td>
+          <td>optional</td>
+          <td><p>horizontal accuracy</p></td>
+        </tr>
+        <tr>
+          <td>v_accuracy</td>
+          <td><a href="#float">float</a></td>
+          <td>optional</td>
+          <td><p>vertical accuracy</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="BetCOM.GpsAxialSystem">GpsAxialSystem</h3>
+    <p>Messages from GPS support different axial systems</p>
+    <table class="enum-table">
+      <thead>
+        <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>NED</td>
+          <td>1</td>
+          <td><p>North East Down</p></td>
+        </tr>
+        <tr>
+          <td>ECEF</td>
+          <td>2</td>
+          <td><p>Earth Centered Rotational</p></td>
+        </tr>
+        <tr>
+          <td>LLH</td>
+          <td>3</td>
+          <td><p>Latitude Longitude Height</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="BetCOM.GpsStatus">GpsStatus</h3>
+    <p>Differential GPS RTK solution modi</p>
+    <table class="enum-table">
+      <thead>
+        <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>SPP</td>
+          <td>0</td>
+          <td><p>Single Point Positioning (SPP)</p></td>
+        </tr>
+        <tr>
+          <td>FLOAT_RTK</td>
+          <td>1</td>
+          <td><p>Floating more unprecise mode for RTK solutions</p></td>
+        </tr>
+        <tr>
+          <td>FIXED_RTK</td>
+          <td>2</td>
+          <td><p>Fixed precise mode for RTK solutions</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="file-heading">
+      <h2 id="gps.proto">gps.proto</h2><a href="#title">Top</a>
+    </div>
+    <div class="file-heading">
+      <h2 id="humidity.proto">humidity.proto</h2><a href="#title">Top</a>
+    </div>
+    <h3 id="BetCOM.Humidity">Humidity</h3>
+    <p>Message for humidity sensor</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>time</td>
+          <td><a href="#BetCOM.Time">Time</a></td>
+          <td>required</td>
+          <td><p>timestamp information</p></td>
+        </tr>
+        <tr>
+          <td>humidity</td>
+          <td><a href="#float">float</a></td>
+          <td>optional</td>
+          <td><p>humidity in %</p></td>
+        </tr>
+        <tr>
+          <td>humidity_raw</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p>humidity as raw value</p></td>
+        </tr>
+        <tr>
+          <td>temperature</td>
+          <td><a href="#float">float</a></td>
+          <td>optional</td>
+          <td><p>temperature in degree Celsius</p></td>
+        </tr>
+        <tr>
+          <td>temperature_raw</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p>temperature as raw value</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="BetCOM.HumidityConf">HumidityConf</h3>
+    <p>Configuration message for humidity sensor</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>basic_conf</td>
+          <td><a href="#BetCOM.BasicConf">BasicConf</a></td>
+          <td>required</td>
+          <td><p>general configuration of humidity sensor</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="file-heading">
+      <h2 id="imu.proto">imu.proto</h2><a href="#title">Top</a>
+    </div>
+    <h3 id="BetCOM.Imu">Imu</h3>
+    <p></p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>type</td>
+          <td><a href="#BetCOM.ImuType">ImuType</a></td>
+          <td>required</td>
+          <td><p>type of IMU</p></td>
+        </tr>
+        <tr>
+          <td>time</td>
+          <td><a href="#BetCOM.Time">Time</a></td>
+          <td>required</td>
+          <td><p>timestamp information</p></td>
+        </tr>
+        <tr>
+          <td>measurements</td>
+          <td><a href="#BetCOM.ImuMeasurement">ImuMeasurement</a></td>
+          <td>repeated</td>
+          <td><p>array of measured data since measurement rat may be higher than sending rate</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="BetCOM.ImuConf">ImuConf</h3>
+    <p>IMU configuration message</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>basic_conf</td>
+          <td><a href="#BetCOM.BasicConf">BasicConf</a></td>
+          <td>required</td>
+          <td><p>basic configuration message</p></td>
+        </tr>
+        <tr>
+          <td>type</td>
+          <td><a href="#BetCOM.ImuType">ImuType</a></td>
+          <td>required</td>
+          <td><p>to associate message with IMU</p></td>
+        </tr>
+        <tr>
+          <td>accel_offset</td>
+          <td><a href="#BetCOM.XYZ_i">XYZ_i</a></td>
+          <td>optional</td>
+          <td><p>XYZ offset values for acceleration</p></td>
+        </tr>
+        <tr>
+          <td>gyro_offset</td>
+          <td><a href="#BetCOM.XYZ_i">XYZ_i</a></td>
+          <td>optional</td>
+          <td><p>XYZ offset values for gyro</p></td>
+        </tr>
+        <tr>
+          <td>mag_offset</td>
+          <td><a href="#BetCOM.XYZ_i">XYZ_i</a></td>
+          <td>optional</td>
+          <td><p>XYZ offset values for magnetometer</p></td>
+        </tr>
+        <tr>
+          <td>accel_range</td>
+          <td><a href="#BetCOM.ImuConf.AccelRange">ImuConf.AccelRange</a></td>
+          <td>optional</td>
+          <td><p>Acceleration range</p></td>
+        </tr>
+        <tr>
+          <td>gyro_range</td>
+          <td><a href="#BetCOM.ImuConf.GyroRange">ImuConf.GyroRange</a></td>
+          <td>optional</td>
+          <td><p>Gyroscope range</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="BetCOM.ImuMeasurement">ImuMeasurement</h3>
+    <p>Container for several data measured in one IMU</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>time</td>
+          <td><a href="#BetCOM.Time">Time</a></td>
+          <td>required</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>accel</td>
+          <td><a href="#BetCOM.XYZ_f">XYZ_f</a></td>
+          <td>optional</td>
+          <td><p>data of accelerometer in SI units</p></td>
+        </tr>
+        <tr>
+          <td>gyro</td>
+          <td><a href="#BetCOM.XYZ_f">XYZ_f</a></td>
+          <td>optional</td>
+          <td><p>data of gyroscope in SI units</p></td>
+        </tr>
+        <tr>
+          <td>mag</td>
+          <td><a href="#BetCOM.XYZ_f">XYZ_f</a></td>
+          <td>optional</td>
+          <td><p>data of magnetometer in SI units</p></td>
+        </tr>
+        <tr>
+          <td>accel_raw</td>
+          <td><a href="#BetCOM.XYZ_i">XYZ_i</a></td>
+          <td>optional</td>
+          <td><p>raw data of accelerometer</p></td>
+        </tr>
+        <tr>
+          <td>gyro_raw</td>
+          <td><a href="#BetCOM.XYZ_i">XYZ_i</a></td>
+          <td>optional</td>
+          <td><p>raw data of gyroscope</p></td>
+        </tr>
+        <tr>
+          <td>mag_raw</td>
+          <td><a href="#BetCOM.XYZ_i">XYZ_i</a></td>
+          <td>optional</td>
+          <td><p>raw data of magnetometer</p></td>
+        </tr>
+        <tr>
+          <td>quaternion</td>
+          <td><a href="#BetCOM.XYZW_f">XYZW_f</a></td>
+          <td>optional</td>
+          <td><p>filtered quaternion output in SI</p></td>
+        </tr>
+        <tr>
+          <td>quaternion_raw</td>
+          <td><a href="#BetCOM.XYZW_i">XYZW_i</a></td>
+          <td>optional</td>
+          <td><p>filtered quaternion output raw</p></td>
+        </tr>
+        <tr>
+          <td>linear_accel</td>
+          <td><a href="#BetCOM.XYZ_f">XYZ_f</a></td>
+          <td>optional</td>
+          <td><p>filtered linear acceleration in SI</p></td>
+        </tr>
+        <tr>
+          <td>linear_accel_raw</td>
+          <td><a href="#BetCOM.XYZ_i">XYZ_i</a></td>
+          <td>optional</td>
+          <td><p>filtered linear acceleration raw</p></td>
+        </tr>
+        <tr>
+          <td>gravity_vector</td>
+          <td><a href="#BetCOM.XYZ_f">XYZ_f</a></td>
+          <td>optional</td>
+          <td><p>filtered gravity vector</p></td>
+        </tr>
+        <tr>
+          <td>gravity_vector_raw</td>
+          <td><a href="#BetCOM.XYZ_i">XYZ_i</a></td>
+          <td>optional</td>
+          <td><p>filtered gravity vector raw</p></td>
+        </tr>
+        <tr>
+          <td>temperature</td>
+          <td><a href="#float">float</a></td>
+          <td>optional</td>
+          <td><p>measured temperature in degree celsius</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="BetCOM.ImuConf.AccelRange">ImuConf.AccelRange</h3>
+    <p>Supported accelerometer ranges which influences precision</p>
+    <table class="enum-table">
+      <thead>
+        <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ACCEL_2G</td>
+          <td>1</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>ACCEL_4G</td>
+          <td>2</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>ACCEL_8G</td>
+          <td>3</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>ACCEL_16G</td>
+          <td>4</td>
+          <td><p></p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="BetCOM.ImuConf.GyroRange">ImuConf.GyroRange</h3>
+    <p>Supported gyroscope ranges in degree per second which influences precision</p>
+    <table class="enum-table">
+      <thead>
+        <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>GYRO_125DPS</td>
+          <td>1</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>GYRO_250DPS</td>
+          <td>2</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>GYRO_500DPS</td>
+          <td>3</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>GYRO_1000DPS</td>
+          <td>4</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>GYRO_2000DPS</td>
+          <td>5</td>
+          <td><p></p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="BetCOM.ImuType">ImuType</h3>
+    <p>Since we have several IMUs we have different types</p>
+    <table class="enum-table">
+      <thead>
+        <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>FC_BOSCH_BNO055</td>
+          <td>0</td>
+          <td><p>see https://www.bosch-sensortec.com/en/homepage/products_3/sensor_hubs/iot_solutions/bno055_1/bno055_4</p></td>
+        </tr>
+        <tr>
+          <td>FC_XSENS_MTI</td>
+          <td>1</td>
+          <td><p>see https://www.xsens.com/products/mti-1-series/</p></td>
+        </tr>
+        <tr>
+          <td>FC_INVENSENS_MPU9250</td>
+          <td>2</td>
+          <td><p>see http://www.invensense.com/products/motion-tracking/9-axis/mpu-9250/</p></td>
+        </tr>
+        <tr>
+          <td>FC_MAX_21100</td>
+          <td>3</td>
+          <td><p>see https://www.maximintegrated.com/en/products/analog/sensors-and-sensor-interface/MAX21100.html</p></td>
+        </tr>
+        <tr>
+          <td>ARM_INVENSENS_MPU9250</td>
+          <td>4</td>
+          <td><p>same as FC_INVENSENS_MPU9250 but located on arm of Carousel</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="file-heading">
+      <h2 id="led.proto">led.proto</h2><a href="#title">Top</a>
+    </div>
+    <h3 id="BetCOM.Led">Led</h3>
+    <p>LED message for simple on/off LEDs</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>location</td>
+          <td><a href="#BetCOM.Led.Location">Led.Location</a></td>
+          <td>required</td>
+          <td><p>location of LED</p></td>
+        </tr>
+        <tr>
+          <td>on</td>
+          <td><a href="#bool">bool</a></td>
+          <td>optional</td>
+          <td><p>value of LED</p></td>
+        </tr>
+        <tr>
+          <td>mode</td>
+          <td><a href="#BetCOM.LedMode">LedMode</a></td>
+          <td>optional</td>
+          <td><p>mode of LED</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="BetCOM.LedBrightness">LedBrightness</h3>
+    <p>LED on FC which allows to adjust brightness</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>brightness</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p>brightness value between 0..255</p></td>
+        </tr>
+        <tr>
+          <td>mode</td>
+          <td><a href="#BetCOM.LedMode">LedMode</a></td>
+          <td>optional</td>
+          <td><p>mode of LED</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="BetCOM.LedMode">LedMode</h3>
+    <p>Allows to set frequency and duty cycle of LED</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>frequency</td>
+          <td><a href="#float">float</a></td>
+          <td>optional</td>
+          <td><p>frequency of blinking default: static</p></td>
+        </tr>
+        <tr>
+          <td>duty_cycle</td>
+          <td><a href="#float">float</a></td>
+          <td>optional</td>
+          <td><p>duty cycle of on-phase default: 0.5</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="BetCOM.LedRGB">LedRGB</h3>
+    <p>RGB-LED on FC</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mode</td>
+          <td><a href="#BetCOM.LedMode">LedMode</a></td>
+          <td>optional</td>
+          <td><p>mode of LED</p></td>
+        </tr>
+        <tr>
+          <td>r_value</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p>r value between 0..255</p></td>
+        </tr>
+        <tr>
+          <td>g_value</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p>g value between 0..255</p></td>
+        </tr>
+        <tr>
+          <td>b_value</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p>b value between 0..255</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="BetCOM.Leds">Leds</h3>
+    <p>wrapper message for all LEDs on FC</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>time</td>
+          <td><a href="#BetCOM.Time">Time</a></td>
+          <td>optional</td>
+          <td><p>optional timing information</p></td>
+        </tr>
+        <tr>
+          <td>leds</td>
+          <td><a href="#BetCOM.Led">Led</a></td>
+          <td>repeated</td>
+          <td><p>settings array for simple LED values</p></td>
+        </tr>
+        <tr>
+          <td>ledBrightness</td>
+          <td><a href="#BetCOM.LedBrightness">LedBrightness</a></td>
+          <td>optional</td>
+          <td><p>settings for LED with birghtness adjustment</p></td>
+        </tr>
+        <tr>
+          <td>ledRGB</td>
+          <td><a href="#BetCOM.LedRGB">LedRGB</a></td>
+          <td>optional</td>
+          <td><p>ssettings for RGB LED</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="BetCOM.Led.Location">Led.Location</h3>
+    <p>Psooible  locations of LED on FC</p>
+    <table class="enum-table">
+      <thead>
+        <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>uC_1</td>
+          <td>1</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>uC_2</td>
+          <td>2</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>uC_3</td>
+          <td>3</td>
+          <td><p></p></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="file-heading">
+      <h2 id="line_angle.proto">line_angle.proto</h2><a href="#title">Top</a>
+    </div>
+    <h3 id="BetCOM.LineAngle">LineAngle</h3>
+    <p>Line angle sensor data struct</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>time</td>
+          <td><a href="#BetCOM.Time">Time</a></td>
+          <td>required</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>azimuth</td>
+          <td><a href="#float">float</a></td>
+          <td>required</td>
+          <td><p>azimuth angle in rad</p></td>
+        </tr>
+        <tr>
+          <td>elevation</td>
+          <td><a href="#float">float</a></td>
+          <td>required</td>
+          <td><p>elevation angle in rad</p></td>
+        </tr>
+        <tr>
+          <td>azimuth_raw</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p>azimuth angle as raw value</p></td>
+        </tr>
+        <tr>
+          <td>elevation_raw</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p>elevation angle as raw value</p></td>
+        </tr>
+        <tr>
+          <td>azimuth_valid</td>
+          <td><a href="#bool">bool</a></td>
+          <td>required</td>
+          <td><p>error flag of azimuth sensor</p></td>
+        </tr>
+        <tr>
+          <td>elevation_valid</td>
+          <td><a href="#bool">bool</a></td>
+          <td>required</td>
+          <td><p>error flag of elevation sensor</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="BetCOM.LineAngleConf">LineAngleConf</h3>
+    <p>Configuration message for Line Anle sensor</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>basic_conf</td>
+          <td><a href="#BetCOM.BasicConf">BasicConf</a></td>
+          <td>required</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>azimuth_offset</td>
+          <td><a href="#float">float</a></td>
+          <td>required</td>
+          <td><p>azimuth offset in rad</p></td>
+        </tr>
+        <tr>
+          <td>elevation_offset</td>
+          <td><a href="#float">float</a></td>
+          <td>required</td>
+          <td><p>rotation offset in rad</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="file-heading">
+      <h2 id="strain.proto">strain.proto</h2><a href="#title">Top</a>
+    </div>
+    <h3 id="BetCOM.Dms">Dms</h3>
+    <p>Strain gauge data struct</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>time</td>
+          <td><a href="#BetCOM.Time">Time</a></td>
+          <td>required</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>strain</td>
+          <td><a href="#float">float</a></td>
+          <td>optional</td>
+          <td><p>current strain in Newton</p></td>
+        </tr>
+        <tr>
+          <td>strain_raw</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p>current strain as raw value</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="BetCOM.DmsConf">DmsConf</h3>
+    <p>Configuration message for strain gauge</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>basic_conf</td>
+          <td><a href="#BetCOM.BasicConf">BasicConf</a></td>
+          <td>required</td>
+          <td><p>basic configuration message for starin gauge</p></td>
+        </tr>
+        <tr>
+          <td>strain_offset</td>
+          <td><a href="#float">float</a></td>
+          <td>required</td>
+          <td><p>offset of measured strain in N</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="file-heading">
+      <h2 id="temperature.proto">temperature.proto</h2><a href="#title">Top</a>
+    </div>
+    <h3 id="BetCOM.Temperature">Temperature</h3>
+    <p>Temperature data struct</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>time</td>
+          <td><a href="#BetCOM.Time">Time</a></td>
+          <td>required</td>
+          <td><p>timestamp information</p></td>
+        </tr>
+        <tr>
+          <td>temperature</td>
+          <td><a href="#float">float</a></td>
+          <td>optional</td>
+          <td><p>temperature in degree Celsius</p></td>
+        </tr>
+        <tr>
+          <td>temperature_raw</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p>temperature as raw value</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="BetCOM.TemperatureConf">TemperatureConf</h3>
+    <p></p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>basic_conf</td>
+          <td><a href="#BetCOM.BasicConf">BasicConf</a></td>
+          <td>required</td>
+          <td><p>basic configuration of temperature sensor</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="file-heading">
+      <h2 id="tube_angle.proto">tube_angle.proto</h2><a href="#title">Top</a>
+    </div>
+    <h3 id="BetCOM.TubeAngle">TubeAngle</h3>
+    <p>Tube angle sensor data struct</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>time</td>
+          <td><a href="#BetCOM.Time">Time</a></td>
+          <td>required</td>
+          <td><p></p></td>
+        </tr>
+        <tr>
+          <td>rotation</td>
+          <td><a href="#float">float</a></td>
+          <td>optional</td>
+          <td><p>rotation angle in rad</p></td>
+        </tr>
+        <tr>
+          <td>elevation</td>
+          <td><a href="#float">float</a></td>
+          <td>optional</td>
+          <td><p>elevation angle in rad</p></td>
+        </tr>
+        <tr>
+          <td>rotation_raw</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p>rotation angle as raw value</p></td>
+        </tr>
+        <tr>
+          <td>elevation_raw</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>optional</td>
+          <td><p>elevation angle as raw value</p></td>
+        </tr>
+        <tr>
+          <td>rotation_valid</td>
+          <td><a href="#bool">bool</a></td>
+          <td>required</td>
+          <td><p>error flag of rotation sensor</p></td>
+        </tr>
+        <tr>
+          <td>elevation_valid</td>
+          <td><a href="#bool">bool</a></td>
+          <td>required</td>
+          <td><p>error flag of elevation sensor</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="BetCOM.TubeAngleConf">TubeAngleConf</h3>
+    <p>Tube angle sensor configuration message</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>basic_conf</td>
+          <td><a href="#BetCOM.BasicConf">BasicConf</a></td>
+          <td>required</td>
+          <td><p>basic configuration of tube angle sensor</p></td>
+        </tr>
+        <tr>
+          <td>rotation_offset</td>
+          <td><a href="#float">float</a></td>
+          <td>optional</td>
+          <td><p>rotation offset in rad</p></td>
+        </tr>
+        <tr>
+          <td>elevation_offset</td>
+          <td><a href="#float">float</a></td>
+          <td>optional</td>
+          <td><p>rotation offset in rad</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="file-heading">
+      <h2 id="types.proto">types.proto</h2><a href="#title">Top</a>
+    </div>
+    <h3 id="BetCOM.BasicConf">BasicConf</h3>
+    <p>Basic Configuration message for sensor</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>activated</td>
+          <td><a href="#bool">bool</a></td>
+          <td>required</td>
+          <td><p>Sensor is active ?</p></td>
+        </tr>
+        <tr>
+          <td>raw</td>
+          <td><a href="#bool">bool</a></td>
+          <td>required</td>
+          <td><p>Sent raw values ?</p></td>
+        </tr>
+        <tr>
+          <td>rate</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>required</td>
+          <td><p>Measurement rate. Maximum depends on sensor.</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="BetCOM.Ticks">Ticks</h3>
+    <p>Ticks for precise relative time measurement in system</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>onepps_counter</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>required</td>
+          <td><p>Number of 1PPS pulses received</p></td>
+        </tr>
+        <tr>
+          <td>ticks</td>
+          <td><a href="#uint32">uint32</a></td>
+          <td>required</td>
+          <td><p>Number of 125 ns ticks since last 1PPS pulse</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="BetCOM.Time">Time</h3>
+    <p>Timestamp information wrapper message</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ticks_measured</td>
+          <td><a href="#BetCOM.Ticks">Ticks</a></td>
+          <td>optional</td>
+          <td><p>Ticks when measurement was achieved</p></td>
+        </tr>
+        <tr>
+          <td>ticks_sent</td>
+          <td><a href="#BetCOM.Ticks">Ticks</a></td>
+          <td>optional</td>
+          <td><p>Ticks when measurement was sent to next station</p></td>
+        </tr>
+        <tr>
+          <td>ticks_received</td>
+          <td><a href="#BetCOM.Ticks">Ticks</a></td>
+          <td>optional</td>
+          <td><p>Ticks when message was received on next station</p></td>
+        </tr>
+        <tr>
+          <td>timestamp_measured</td>
+          <td><a href="#BetCOM.Timestamp">Timestamp</a></td>
+          <td>optional</td>
+          <td><p>Placeholder for converted ticks_measured</p></td>
+        </tr>
+        <tr>
+          <td>timestamp_sent</td>
+          <td><a href="#BetCOM.Timestamp">Timestamp</a></td>
+          <td>optional</td>
+          <td><p>Placeholder for converted ticks_sent</p></td>
+        </tr>
+        <tr>
+          <td>timestamp_received</td>
+          <td><a href="#BetCOM.Timestamp">Timestamp</a></td>
+          <td>optional</td>
+          <td><p>Placeholder for converted ticks_received</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="BetCOM.Timestamp">Timestamp</h3>
+    <p>Timestamp format on BeagleBone or other Linux machines</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>tsec</td>
+          <td><a href="#uint64">uint64</a></td>
+          <td>required</td>
+          <td><p>seconds since 1970 (UTC)</p></td>
+        </tr>
+        <tr>
+          <td>tnsec</td>
+          <td><a href="#uint64">uint64</a></td>
+          <td>required</td>
+          <td><p>nanoseconds from clock</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="BetCOM.XYZW_f">XYZW_f</h3>
+    <p>Quaternion datatype float</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>x</td>
+          <td><a href="#float">float</a></td>
+          <td>required</td>
+          <td><p>x value unit depends on message</p></td>
+        </tr>
+        <tr>
+          <td>y</td>
+          <td><a href="#float">float</a></td>
+          <td>required</td>
+          <td><p>y value unit depends on message</p></td>
+        </tr>
+        <tr>
+          <td>z</td>
+          <td><a href="#float">float</a></td>
+          <td>required</td>
+          <td><p>z value unit depends on message</p></td>
+        </tr>
+        <tr>
+          <td>w</td>
+          <td><a href="#float">float</a></td>
+          <td>required</td>
+          <td><p>w value unit depends on message</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="BetCOM.XYZW_i">XYZW_i</h3>
+    <p>Quaternion datatype integer</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>x</td>
+          <td><a href="#sint32">sint32</a></td>
+          <td>required</td>
+          <td><p>x value unit depends on message</p></td>
+        </tr>
+        <tr>
+          <td>y</td>
+          <td><a href="#sint32">sint32</a></td>
+          <td>required</td>
+          <td><p>y value unit depends on message</p></td>
+        </tr>
+        <tr>
+          <td>z</td>
+          <td><a href="#sint32">sint32</a></td>
+          <td>required</td>
+          <td><p>z value unit depends on message</p></td>
+        </tr>
+        <tr>
+          <td>w</td>
+          <td><a href="#sint32">sint32</a></td>
+          <td>required</td>
+          <td><p>w value unit depends on message</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="BetCOM.XYZ_f">XYZ_f</h3>
+    <p>XYZ data of datatype float</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>x</td>
+          <td><a href="#float">float</a></td>
+          <td>required</td>
+          <td><p>x value unit depends on message</p></td>
+        </tr>
+        <tr>
+          <td>y</td>
+          <td><a href="#float">float</a></td>
+          <td>required</td>
+          <td><p>y value unit depends on message</p></td>
+        </tr>
+        <tr>
+          <td>z</td>
+          <td><a href="#float">float</a></td>
+          <td>required</td>
+          <td><p>z value unit depends on message</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="BetCOM.XYZ_i">XYZ_i</h3>
+    <p>XYZ data of datatype signed integer</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>x</td>
+          <td><a href="#sint32">sint32</a></td>
+          <td>required</td>
+          <td><p>x value unit depends on message</p></td>
+        </tr>
+        <tr>
+          <td>y</td>
+          <td><a href="#sint32">sint32</a></td>
+          <td>required</td>
+          <td><p>y value unit depends on message</p></td>
+        </tr>
+        <tr>
+          <td>z</td>
+          <td><a href="#sint32">sint32</a></td>
+          <td>required</td>
+          <td><p>z value unit depends on message</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="BetCOM.Globals">Globals</h3>
+    <p>Constants which are accessible via generated Headers</p>
+    <table class="enum-table">
+      <thead>
+        <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>MAX_MESSAGE_SIZE</td>
+          <td>1024</td>
+          <td><p></p></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 id="scalar-value-types">Scalar Value Types</h2>
+    <table class="scalar-value-types-table">
+      <thead>
+        <tr><td>.proto Type</td><td>Notes</td><td>C++ Type</td><td>Java Type</td><td>Python Type</td></tr>
+      </thead>
+      <tbody>
+        <tr id="double">
+          <td>double</td>
+          <td></td>
+          <td>double</td>
+          <td>double</td>
+          <td>float</td>
+        </tr>
+        <tr id="float">
+          <td>float</td>
+          <td></td>
+          <td>float</td>
+          <td>float</td>
+          <td>float</td>
+        </tr>
+        <tr id="int32">
+          <td>int32</td>
+          <td>Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint32 instead.</td>
+          <td>int32</td>
+          <td>int</td>
+          <td>int</td>
+        </tr>
+        <tr id="int64">
+          <td>int64</td>
+          <td>Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint64 instead.</td>
+          <td>int64</td>
+          <td>long</td>
+          <td>int/long</td>
+        </tr>
+        <tr id="uint32">
+          <td>uint32</td>
+          <td>Uses variable-length encoding.</td>
+          <td>uint32</td>
+          <td>int</td>
+          <td>int/long</td>
+        </tr>
+        <tr id="uint64">
+          <td>uint64</td>
+          <td>Uses variable-length encoding.</td>
+          <td>uint64</td>
+          <td>long</td>
+          <td>int/long</td>
+        </tr>
+        <tr id="sint32">
+          <td>sint32</td>
+          <td>Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int32s.</td>
+          <td>int32</td>
+          <td>int</td>
+          <td>int</td>
+        </tr>
+        <tr id="sint64">
+          <td>sint64</td>
+          <td>Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int64s.</td>
+          <td>int64</td>
+          <td>long</td>
+          <td>int/long</td>
+        </tr>
+        <tr id="fixed32">
+          <td>fixed32</td>
+          <td>Always four bytes. More efficient than uint32 if values are often greater than 2^28.</td>
+          <td>uint32</td>
+          <td>int</td>
+          <td>int</td>
+        </tr>
+        <tr id="fixed64">
+          <td>fixed64</td>
+          <td>Always eight bytes. More efficient than uint64 if values are often greater than 2^56.</td>
+          <td>uint64</td>
+          <td>long</td>
+          <td>int/long</td>
+        </tr>
+        <tr id="sfixed32">
+          <td>sfixed32</td>
+          <td>Always four bytes.</td>
+          <td>int32</td>
+          <td>int</td>
+          <td>int</td>
+        </tr>
+        <tr id="sfixed64">
+          <td>sfixed64</td>
+          <td>Always eight bytes.</td>
+          <td>int64</td>
+          <td>long</td>
+          <td>int/long</td>
+        </tr>
+        <tr id="bool">
+          <td>bool</td>
+          <td></td>
+          <td>bool</td>
+          <td>boolean</td>
+          <td>boolean</td>
+        </tr>
+        <tr id="string">
+          <td>string</td>
+          <td>A string must always contain UTF-8 encoded or 7-bit ASCII text.</td>
+          <td>string</td>
+          <td>String</td>
+          <td>str/unicode</td>
+        </tr>
+        <tr id="bytes">
+          <td>bytes</td>
+          <td>May contain any arbitrary sequence of bytes.</td>
+          <td>string</td>
+          <td>ByteString</td>
+          <td>str</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </body>
+</html>

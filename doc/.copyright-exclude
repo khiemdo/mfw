@@ -1,0 +1,11 @@
+.\.git\*
+.\submodules\*
+.\src\ti\*
+.\src\lwip\*
+.\src\sensors\imu_xsens\xbus\*
+.\doc\*
+*startup_ccs.c
+*startup_ccs_gcc.c
+*simple.pb.*
+*.\src\utils\crc16.*
+*.\src\utils\version.*

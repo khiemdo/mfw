@@ -1,0 +1,7 @@
+include_rules
+
+: foreach *.proto |> protoc --python_out=. %f |> %B_pb2.py
+
+: foreach *.py |> python -m compileall %f |> %B.pyc
+
+.gitignore
